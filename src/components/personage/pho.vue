@@ -17,7 +17,7 @@
       <div class="telbangShuruGroup">
         <form @keyup="Enter($event)">
           <p class="tian_ha">
-            <span class="tian_sx">R2登录密码：</span>
+            <span class="tian_sx">魔力登录密码：</span>
             <span class="tian_mu"><input type="password" v-model="password"></span>
           </p>
           <p v-if="passwordError" class="error">*请输入正确的密码格式</p>

@@ -2,7 +2,7 @@
   <div class="recharge">
     <div class="web-crumbs">
       <div class="crumbs">
-        当前位置： <a href="">R2游戏首页</a> > <a href="">账户充值</a>
+        当前位置： <a href="">魔力游戏首页</a> > <a href="">账户充值</a>
       </div>
     </div>
     <div class="web-recharge-content">
@@ -1264,7 +1264,7 @@ export default {
     return {
 //      list:['R2币兑换游戏币','网上银行','支付宝','微信支付','手机固话充值','游戏点卡充值','国际信用卡','短信充值','转款汇款'],
       list:['网上银行'],
-      listCheck:'R2币兑换游戏币',
+      listCheck:'魔力币兑换游戏币',
       zy:{
         money:['月卡','至尊卡','6000钻石','3000钻石','2000钻石','600砖石','300砖石','60砖石'],
         moneyCheck:'月卡'

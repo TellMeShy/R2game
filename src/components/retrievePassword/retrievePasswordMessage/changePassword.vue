@@ -2,11 +2,6 @@
   <div class="changePassword">
     <div @keyup="Enter($event)">
       <dl>
-        <dt>收到验证码:</dt>
-        <dd><div class="emverify">{{token}}</div></dd>
-      </dl>
-
-      <dl>
         <dt>新的登录密码:</dt>
         <dd><input type="password" v-model="password"><span v-if="passwordError"><i></i>6-20个数字字母混合，不含空格键</span></dd>
       </dl>

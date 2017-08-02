@@ -13,27 +13,34 @@
           <div class="gameLst cd">
             <p class="page-img">
               <img :src="i.pic" alt="">
-              <a target="_blank" :href="i.url" class="gamelogo "></a>
+              <a target="_blank" :href="i.url" v-if="i.url" class="gamelogo "></a>
+              <a target="_blank"  v-if="!i.url" @click="onMassageChange('敬请期待')" class="gamelogo "></a>
             </p>
             <div class="gameTxt cd">
               <ul class="gameInfo">
-                <li class="name"><a target="_blank" :href="i.url" class="u-n">{{i.title}}</a><span class="u-i">类型：{{i.type}}</span></li>
+                <li class="name"><a target="_blank" :href="i.url" v-if="i.url" class="u-n">{{i.title}}</a><a target="_blank"  v-if="!i.url" @click="onMassageChange('敬请期待')" class="u-n">{{i.title}}</a><span class="u-i">类型：{{i.type}}</span></li>
+
                 <li class="info" v-html="i.body"></li>
                 <li class="btn">
-                  <a target="_blank" :href="i.url" class="g-btnBig">进入官网</a>
+                  <a target="_blank" :href="i.url" v-if="i.url" class="g-btnBig">进入官网</a>
+                  <a target="_blank"  v-if="!i.url" @click="onMassageChange('敬请期待')" class="g-btnBig">进入官网</a>
                   <ul class="download">
-                    <a target="_blank" :href="i.Android"><li class="download_a"></li></a>
-                    <a target="_blank" :href="i.Ios"><li class="download_i"></li></a>
+                    <a target="_blank" :href="i.Android" v-if="i.Android"><li class="download_a"></li></a>
+                    <a target="_blank" @click="onMassageChange('敬请期待')" v-if="!i.Android"><li class="download_a"></li></a>
+                    <a target="_blank" :href="i.Ios" v-if="i.Ios"><li class="download_i"></li></a>
+                    <a target="_blank" @click="onMassageChange('敬请期待')" v-if="!i.Ios"><li class="download_i"></li></a>
                   </ul>
                   <!--<a target="_blank" href="" class="o-btnBig">开始游戏</a>-->
                 </li>
               </ul>
               <ul class="gameCode">
                 <li class="img_box">
-                  <a target="_blank" :href="i.url"><img :src="i.sImg" alt="" width="46" height="46"></a>
+                  <a target="_blank" :href="i.url" v-if="i.url"><img :src="i.sImg" alt="" width="46" height="46"></a>
+                  <a target="_blank"  v-if="!i.url" @click="onMassageChange('敬请期待')"><img :src="i.sImg" alt="" width="46" height="46"></a>
                 </li>
                 <li class="code">{{i.title}}</li>
-                <li><a target="_blank" :href="i.gift" class="g-btnBig">领取礼包</a></li>
+                <li><a target="_blank" :href="i.gift" class="g-btnBig" v-if="i.gift">领取礼包</a></li>
+                <li><a target="_blank" @click="onMassageChange('敬请期待')" class="g-btnBig" v-if="!i.gift">领取礼包</a></li>
               </ul>
             </div>
           </div>
@@ -51,7 +58,7 @@
           <a @click="checkPage(selectpage-1)">跳转</a>
         </div>
       </div>
-
+      <Valert :massage="massagenew" @on-massage-change="onMassageChange"></Valert>
     </div>
   </div>
 </template>
@@ -61,10 +68,12 @@
   import VserverList from './component/serverList.vue'
   import Vgroup from './component/group.vue'
   import Vhotevents from './component/hotevents.vue'
+  import Valert from './component/alert.vue'
 export default {
   name: 'game',
   data () {
     return {
+      massagenew:'',
       list:'',
       pagecur:1,
       page:'',
@@ -72,9 +81,12 @@ export default {
     }
   },
   components:{
-    Vswipe,VserverList,Vgroup,Vhotevents
+    Vswipe,VserverList,Vgroup,Vhotevents,Valert
   },
   methods:{
+    onMassageChange:function (val) {
+      this.massagenew=val
+    },
     checkPage:function (a) {
       if(a<0){
           a=0

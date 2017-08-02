@@ -4,8 +4,8 @@
     <div class="person-c">
       <div class="person-c-pho">
         <p class="photo_pic">
-          <img v-bind:src="data.user_img" alt="" v-if="data.user_img" id="preview">
-          <img src="../../../static/img/personage/default.jpg" alt="" v-if="!data.user_img" id="preview">
+          <img v-bind:src="data.user_img" alt="" v-if="data.user_img&&(data.user_img!='\'\'')" id="preview">
+          <img src="../../../static/img/personage/default.jpg" alt="" v-if="(!data.user_img)||(data.user_img=='\'\'')" id="preview">
         </p>
         <button onclick="path.click()" v-if="!imgsv">上传头像</button>
         <button @click="saveimg" v-if="imgsv">保存头像</button>
@@ -70,23 +70,23 @@
             <span class="caozuo"><router-link to="/personage/bindMail" class="as">查看</router-link></span>
           </p>
         </div>
-        <div class="zta_zhu">用于忘记密码或账号被盗时快速重置密码，如需修改当前绑定邮箱，点击<router-link to="/personage/email">修改绑定</router-link>。</div>
+        <div class="zta_zhu">用于忘记密码或账号被盗时快速重置密码，如需修改当前绑定邮箱，点击<router-link to="/personage/changemail">修改绑定</router-link>。</div>
       </div>
       <div class="ztaibox zt_c">
         <div class="zta_tu">
           <p class="zta_bt">手机绑定</p>
-          <p class="zta_see" v-if="!data.phone">
+          <p class="zta_see" v-if="(!data.phone)||(data.phone==0)">
             <span class="icon_rz_warn">&nbsp;</span>
             <span class="rz_b">未绑定</span>
             <span class="caozuo"><router-link to="/personage/pho" class="as">绑定</router-link></span>
           </p>
-          <p class="zta_see" v-if="data.phone">
+          <p class="zta_see" v-if="data.phone&&(data.phone!=0)">
             <span class="icon_rz_ok">&nbsp;</span>
             <span class="rz_a">已认证</span>
             <span class="caozuo"><router-link to="/personage/phoSucce" class="as">查看</router-link></span>
           </p>
         </div>
-        <div class="zta_zhu">用于密码修改时短信提示和密码遗失时重置密码，如需解除当前绑定手机，点击<router-link to="/personage/relievepho">解除绑定</router-link>。</div>
+        <div class="zta_zhu">用于密码修改时短信提示和密码遗失时重置密码，如需修改当前绑定手机，点击<router-link to="/personage/changepho">修改绑定</router-link>。</div>
       </div>
       <div class="clear"></div>
     </div>

@@ -1,12 +1,12 @@
 <template>
   <div class="Vswipe">
-    <div class="swip_box" v-bind:style="{transform :'translateX('+page*-1920+'px)',width:(banner.length*100)+'%'}">
+    <div class="swip_box" v-bind:style="{transform :'translateX('+page*-100/banner.length+'%)',width:(banner.length*100)+'%'}">
       <div v-for="(i,index) in banner"  :style="{width:(100/banner.length)+'%'}">
         <a :href="i.link" target="_blank"><img :src="i.pic" :alt="i.title"></a>
       </div>
     </div>
     <div class="pagebtn">
-      <span @click="toPage(i.index)" v-bind:class="{cur:page==i.index}" v-for="(i,index) in banner"></span>
+      <span @click="toPage(index)" v-bind:class="{cur:page==index}" v-for="(i,index) in banner"></span>
     </div>
   </div>
 </template>
@@ -21,7 +21,7 @@
       }
     },
     created:function () {
-      this.$http.get(weUrl+'?ac=getFlag')
+      this.$http.get(weUrl+'?ac=getFlag',{params:{type:1}})
         .then(function(data){
           if(data.body.state==true){
             this.banner = data.body.data

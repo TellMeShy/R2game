@@ -92,13 +92,27 @@ export default {
       verify:'',
       phoverify:'',
       verify2:'',
-      phoverify2:''
+      phoverify2:'',
+      phoTime:0
     }
   },
   components:{
     Valert
   },
   created:function () {
+    if(localStorage.getItem('time')){
+      let that = this
+      this.phoTime = localStorage.getItem('time')
+      that.settime = setInterval(function () {
+        that.phoTime--
+        localStorage.setItem('time',that.phoTime)
+        if(that.phoTime <= 0) {
+          that.phoTime=''
+          localStorage.removeItem('time')
+          clearInterval(that.settime);
+        }
+      },1000)
+    }
     let url=weUrl+'?ct=userHome';
     let parmas={}
     this.$http.get(url,parmas)
@@ -112,7 +126,6 @@ export default {
         }else {
           this.onMassageChange(data.body.message)
         }
-
       },function(response){
       })
   },
@@ -148,6 +161,40 @@ export default {
     },
     onMassageChange:function (val) {
       this.massagenew=val
+    },
+    getMessage:function () {
+      let url=weUrl+'?ct=user&ac=sendInfo';
+      let parmas={
+        params:{
+          phone:this.pho2,
+          type:2
+        }
+      }
+      this.$http.get(url,parmas)
+        .then(function(data){
+          if(data.body.state){
+            localStorage.setItem('time',60)
+            this.phoTime = 60
+            if(localStorage.getItem('time')){
+              let that = this
+              this.phoTime = localStorage.getItem('time')
+              that.settime = setInterval(function () {
+                that.phoTime--
+                localStorage.setItem('time',that.phoTime)
+                if(that.phoTime <= 0) {
+                  that.phoTime=''
+                  localStorage.removeItem('time')
+                  clearInterval(that.settime);
+                }
+
+              },1000)
+            }
+          }else {
+            this.onMassageChange(data.body.message)
+          }
+        },function(response){
+
+        })
     },
   },
 }

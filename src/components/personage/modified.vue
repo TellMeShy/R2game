@@ -5,8 +5,8 @@
       <div class="email-box-l">
         <div class="person-c-pho">
           <p class="photo_pic">
-            <img v-bind:src="data.user_img" alt="" v-if="data.user_img" id="preview">
-            <img src="../../../static/img/personage/default.jpg" alt="" v-if="!data.user_img" id="preview">
+            <img v-bind:src="data.user_img" alt="" v-if="data.user_img&&(data.user_img!='\'\'')" id="preview">
+            <img src="../../../static/img/personage/default.jpg" alt="" v-if="(!data.user_img)||(data.user_img=='\'\'')" id="preview">
         </p>
           <button onclick="path.click()" v-if="!imgsv">上传头像</button>
           <button @click="saveimg" v-if="imgsv">保存头像</button>

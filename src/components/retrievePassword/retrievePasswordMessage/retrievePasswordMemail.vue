@@ -2,10 +2,10 @@
   <div class="retrievePasswordMemail">
     <div v-if="step==1">
       <dl>
-        <dt>R2通行证:</dt>
+        <dt>魔力通行证:</dt>
         <dd>
           <input type="text" v-model="uesrname">
-          <span v-if="uesrnameError"><i></i>请填写R2通行证</span>
+          <span v-if="uesrnameError"><i></i>请填写魔力通行证</span>
         </dd>
       </dl>
       <dl>

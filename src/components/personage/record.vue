@@ -19,7 +19,7 @@
           <!--查询项 区开始-->
           <div class="chaxiangBox">
             <form id="exForm" action="" method="get">
-              <p class="cx_srha"><span class="cx_sx">R2币剩余：</span>
+              <p class="cx_srha"><span class="cx_sx">魔力币剩余：</span>
                 <label name="textarea" class="in_ofcx" value="0">30</label>
                 <a href="/paymentV2/default" class="btnsu t_a_small"><span class="zi">立即充值</span></a></p>
               <p class="cx_srha"><span class="cx_sx">查询日期：</span>

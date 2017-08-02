@@ -13,7 +13,7 @@
         </ul>
         <div class="r2list right">
           <div class="r2list-button">
-            <i></i><span>R2游戏</span>
+            <i></i><span>魔力游戏</span>
           </div>
           <div class="top-gameBox cd">
 
@@ -23,7 +23,11 @@
                 <h2 class="title web-title">手机游戏</h2>
                 <ul class="u-gameLst cd">
                   <li v-for="(i,index) in list">
-                    <a target="_blank" :href="i.url">
+                    <a target="_blank" v-if="i.url" :href="i.url">
+                      <span>{{i.title}}</span>
+                      <i class="icon" :class="{'hot':i.type2==1,'new':i.type2==2}"></i>
+                    </a>
+                    <a target="_blank"  v-if="!i.url" @click="onMassageChange('敬请期待')">
                       <span>{{i.title}}</span>
                       <i class="icon" :class="{'hot':i.type2==1,'new':i.type2==2}"></i>
                     </a>
@@ -65,12 +69,12 @@
           </div>
           <div class="footer-b-r">
             <ul class="footer-b-r-nav">
-              <li class="first"><a href="">关于R2</a></li>
-              <li><a href="">R2无线</a></li>
-              <li><a href="">联系我们</a></li>
-              <li><a href="">加入我们</a></li>
-              <li><a href="">客服中心</a></li>
-              <li><a href="">商务合作</a></li>
+              <li class="first"><a href="http://corporate.r2games.com/?ac=about" target="_blank">关于R2</a></li>
+              <li><a href="http://ch.r2games.com.cn/index.html#/game" target="_blank">魔力无线</a></li>
+              <li><a href="http://corporate.r2games.com/?ac=contact" target="_blank">联系我们</a></li>
+              <li><a href="http://corporate.r2games.com/join/" target="_blank">加入我们</a></li>
+              <li><a href="http://corporate.r2games.com/?ac=contact" target="_blank">客服中心</a></li>
+              <li><a href="http://corporate.r2games.com/?ac=contact" target="_blank">商务合作</a></li>
               <li><a href="">用户许可协议</a></li>
             </ul>
             <p class="recommend">
@@ -79,12 +83,12 @@
               <!--<span class="recommend-g"><a href="">{{i}}</a></span>-->
             </p>
             <p class="footer-laster">
-              <a>备案号：310104100000789</a>
-              <a>深B2-521054745号</a>
-              <a>深ICP备09058716号</a>
-              <a>深网文[2017]7549-256044774289</a>
-              <a>新出网证(沪)字33号</a>
-              <a>深圳灿和兄弟科技有限公司 ©版权所有</a>
+              <!--<a>备案号：310104100000789</a>-->
+              <!--<a>深B2-521054745号</a>-->
+              <a>粤ICP备17047652号-1</a>
+              <a>粤网文 [2017] 3918-769号</a>
+              <!--<a>新出网证(沪)字33号</a>-->
+              <a>深圳魔力数娱网络科技有限公司 ©版权所有</a>
             </p>
 
           </div>
@@ -111,9 +115,6 @@
     data () {
       return {
         currentNum: 1,
-        recommendGame:[
-          '女神联盟','女神联盟','女神联盟','女神联盟','女神联盟'
-        ],
         isLogin:false,
         popUp:'',
         recommended:'',
@@ -134,10 +135,13 @@
       }
     },
     created:function () {
-      if(sessionStorage.getItem('userName')){
-        this.isLogin = sessionStorage.getItem('userName')
-      }else {
-        this.isLogin = ''
+      var name = 'userName='
+      var ca = document.cookie.split(';');
+      for(var i=0; i<ca.length; i++)
+      {
+        var c = ca[i].trim();
+        if (c.indexOf(name)==0)
+            this.isLogin = c.split('=')[1]
       }
       if((/\/game/.test(this.$route.path))&&!(/\/game.+/.test(this.$route.path))){
         this.currentNum=2
@@ -167,11 +171,14 @@
         })
     },
     methods:{
+      onMassageChange:function (val) {
+        this.massagenew=val
+      },
       onPopUpChange:function (val) {    //接受弹窗传值
         this.popUp=val
       },
       logout:function(){               //注销
-        sessionStorage.removeItem('userName')
+        document.cookie="userName=John Doe; expires=Thu, 18 Dec 2013 12:00:00 GMT";
         this.isLogin = ''
         this.$router.push({path:'/'})
         window.location.reload();
@@ -274,7 +281,7 @@
           width 1200px
           right 0
           z-index 51
-          height 300px
+          height 289px
         i
           float left
           width 6px
@@ -416,6 +423,7 @@
         font-weight normal
         color #fff
         position relative
+        padding-bottom 0
         div
           cursor pointer
           position absolute

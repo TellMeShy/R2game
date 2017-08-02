@@ -13,7 +13,7 @@
       <div class="Mailbang01Group">
         <p>
           <span>登入密码：</span>
-          <input type="text">
+          <input type="password">
         </p>
         <router-link to="/personage/mystery3"><button>下一步</button></router-link>
       </div>

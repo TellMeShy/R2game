@@ -32,6 +32,8 @@ import record from '@/components/personage/record'
 import email from '@/components/personage/email'
 import email2 from '@/components/personage/email2'
 import bindMail from '@/components/personage/email3'
+import changemail from '@/components/personage/changemail'
+import newemail from '@/components/personage/newemail'
 import pho from '@/components/personage/pho'
 import phosucce from '@/components/personage/phosucce'
 import changepho from '@/components/personage/changepho'
@@ -115,6 +117,8 @@ export default new Router({
         {path:'email',component:email},
         {path:'email2',component:email2},
         {path:'bindMail',component:bindMail},
+        {path:'changemail',component:changemail},
+        {path:'newemail',component:newemail},
         {path:'pho',component:pho},
         {path:'phosucce',component:phosucce},
         {path:'changepho',component:changepho},

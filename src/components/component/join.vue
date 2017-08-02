@@ -51,7 +51,7 @@
               <a class="icon icon-re" @click="changeImg"></a>
             </div>
             <p class="error" v-bind:class="{istrue:!registers.traffic.verifyError}"><i class="icon icon-exclamation" v-if="registers.traffic.verifyError"></i>请输入验证码</p>
-            <p class="agreement"><input type="checkbox" class="check" v-model="registers.traffic.agree"><a>阅读并同意R2Games通行证注册协议</a></p>
+            <p class="agreement"><input type="checkbox" class="check" v-model="registers.traffic.agree"><a>阅读并同意魔力通行证注册协议</a></p>
             <button v-on:click="registersTraffic">快速注册</button>
             <p class="register">已注册？请<a v-on:click="popUpWindow('账号登录')">登录</a></p>
             <!--<p class="ortherLogo">-->
@@ -86,7 +86,7 @@
             <input type="text" placeholder="身份证号码" v-model="registers.pho.idcard" v-on:blur="checkIdcard(registers.pho.idcard,'registers','pho','idcardError')">
             <p class="error" v-bind:class="{istrue:!registers.pho.idcardError}"><i class="icon icon-exclamation" v-if="registers.pho.idcardError"></i>请准确填写身份证号码</p>
 
-            <p class="agreement"><input type="checkbox" class="check" v-model="registers.pho.agree"><a>阅读并同意R2Games通行证注册协议</a></p>
+            <p class="agreement"><input type="checkbox" class="check" v-model="registers.pho.agree"><a>阅读并同意魔力通行证注册协议</a></p>
             <button v-on:click="registersPho">快速注册</button>
             <p class="register">已注册？请<a v-on:click="popUpWindow('账号登录')">登录</a></p>
             <!--<p class="ortherLogo">-->
@@ -162,8 +162,8 @@ export default {
     }
   },
   created:function () {
-    if(localStorage.getItem('userName')){
-      this.username = localStorage.getItem('userName')
+    if(sessionStorage.getItem('userName')){
+      this.username = sessionStorage.getItem('userName')
     }else {
       this.username = ''
     }
@@ -410,7 +410,7 @@ export default {
         .then(function(data){
           if(data.body.state){
             this.isLogin = this.username
-            sessionStorage.setItem('userName',this.username)
+            document.cookie="userName="+this.username;
             this.popUpWindow(false)
             window.location.reload();
           }else {

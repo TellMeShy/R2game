@@ -2,7 +2,7 @@
   <div class="home">
     <div class="web-login-box" v-if="!isLogin" @keyup="Enter($event)">
       <div class="login-box">
-        <h4><router-link to="/details/001">登录R2通行证</router-link></h4>
+        <h4><router-link to="/details/001">登录魔力通行证</router-link></h4>
         <div><i></i><input type="text" placeholder="账号" v-model="username" v-on:blur="checkLogUser(username,'userError')"></div>
         <p v-if="userError" class="error"><i class="icon icon-exclamation"></i>*5-20个小写英文字母或数字组成</p>
         <div class="password"><i></i><input onfocus="this.type='password'" type="text"  autocomplete="off" placeholder="密码" v-model="password" v-on:blur="checkPassword(password,'passwordError')"></div>
@@ -44,7 +44,8 @@
               <ul>
                 <li v-for="i in BoutiqueGame">
                   <div class="gameImg">
-                    <a target="_blank" :href="i.url"><img :src="i.img" :alt="i.title"></a>
+                    <a target="_blank" :href="i.url" v-if="i.url"><img :src="i.img" :alt="i.title"></a>
+                    <a target="_blank" v-if="!i.url" @click="onMassageChange('敬请期待')"><img :src="i.img" :alt="i.title"></a>
                   </div>
                   <ul class="gameTxt">
                     <li>
@@ -53,13 +54,27 @@
                         <i class="icon" :class="{'new':i.type2==2,'hot':i.type2==1}"></i>
                       </p>
                       <p class="slink">
-                        <a target="_blank" :href="i.url">官网</a>|
-                        <a target="_blank" :href="i.gift">礼包</a>
+                        <a target="_blank" :href="i.url" v-if="i.url">官网</a><a target="_blank"  v-if="!i.url" @click="onMassageChange('敬请期待')">官网</a>|<a target="_blank" :href="i.gift" v-if="i.gift">礼包</a><a target="_blank"  @click="onMassageChange('敬请期待')" v-if="!i.gift">礼包</a>
                       </p>
                     </li>
                     <li>
-                      <p class="stxt">类型：角色扮演</p>
-                      <a target="_blank" class="o-btnBig">下载游戏<div><a target="_blank" :href="i.Android"><i class="icon Android"></i></a><a target="_blank" :href="i.Ios"><i class="icon ios"></i></a></div></a>
+                      <p class="stxt">类型：{{i.type}}</p>
+                      <a target="_blank" class="o-btnBig">下载游戏
+                        <div>
+                          <a target="_blank" :href="i.Android" v-if="i.Android">
+                            <i class="icon Android"></i>
+                          </a>
+                          <a target="_blank" @click="onMassageChange('敬请期待')" v-if="!i.Android">
+                            <i class="icon Android"></i>
+                          </a>
+                          <a target="_blank" :href="i.Ios" v-if="i.Ios">
+                            <i class="icon ios"></i>
+                          </a>
+                          <a target="_blank" @click="onMassageChange('敬请期待')" v-if="!i.Ios">
+                            <i class="icon ios"></i>
+                          </a>
+                        </div>
+                      </a>
                     </li>
                   </ul>
                 </li>
@@ -74,27 +89,31 @@
               <router-link to="/game" class="more hovera">+更多&gt;</router-link>
             </h2>
             <div class="u-mobileLst cd">
-              <ul v-html="HotGame">
-                <!--<li>-->
-                <!--<a target="_blank" href="" class="gameImg">-->
-                <!--<img src="" alt="">-->
-                <!--</a>-->
-                <!--<div class="gameBox">-->
-                <!--<a target="_blank" href="" title="女神联盟2">女神联盟2</a>-->
-                <!--<p class="stxt">类型：角色扮演</p>-->
-                <!--<p class="slink">-->
-                <!--<a target="_blank" href="">官网</a> |-->
-                <!--<a target="_blank" href="">礼包</a>-->
-                <!--</p>-->
-                <!--<div class="btn">-->
-                <!--<p>应用下载</p>-->
-                <!--<p class="hover">-->
-                <!--<a target="_blank" rel="nofollow" href="" class="and"><i></i></a>-->
-                <!--<a target="_blank" rel="nofollow" href="" class="ios"><i></i></a>-->
-                <!--</p>-->
-                <!--</div>-->
-                <!--</div>-->
-                <!--</li>-->
+              <ul>
+                <li v-for="i in HotGame">
+                <a target="_blank" :href="i.url" v-if="i.url" class="gameImg"><img :src="i.pic" :alt="i.title"></a>
+                <a target="_blank" v-if="!i.url" @click="onMassageChange('敬请期待')" class="gameImg"><img :src="i.pic" :alt="i.title"></a>
+                <div class="gameBox">
+                <a target="_blank" :href="i.url" v-if="i.url" :title="i.title">{{i.title}}</a>
+                <a target="_blank"  v-if="!i.url" @click="onMassageChange('敬请期待')" :title="i.title">{{i.title}}</a>
+                <p class="stxt">类型：{{i.type}}</p>
+                <p class="slink">
+                <a target="_blank" :href="i.url" v-if="i.url">官网</a>
+                <a target="_blank"  v-if="!i.url" @click="onMassageChange('敬请期待')">官网</a> |
+                <a target="_blank" :href="i.gift" v-if="i.gift">礼包</a>
+                <a target="_blank" @click="onMassageChange('敬请期待')" v-if="!i.gift">礼包</a>
+                </p>
+                <div class="btn">
+                <p>应用下载</p>
+                <p class="hover">
+                <a target="_blank" rel="nofollow" :href="i.Android" class="and" v-if="i.Android"><i></i></a>
+                <a target="_blank" rel="nofollow" @click="onMassageChange('敬请期待')" class="and" v-if="!i.Android"><i></i></a>
+                <a target="_blank" rel="nofollow" :href="i.Ios" class="ios" v-if="i.Ios"><i></i></a>
+                <a target="_blank" rel="nofollow" @click="onMassageChange('敬请期待')" class="ios" v-if="!i.Ios"><i></i></a>
+                </p>
+                </div>
+                </div>
+                </li>
               </ul>
             </div>
           </div>
@@ -132,7 +151,18 @@
         <div>
           <p>手机游戏</p>
           <ul>
-            <a target="_blank" :href="i.url" v-for="i in gamelist"><li><span>{{i.title}}</span><i :class="{'hot':i.type2==1,'new':i.type2==2}"></i></li></a>
+            <a target="_blank" :href="i.url" v-if="i.url" v-for="i in gamelist">
+              <li>
+                <span>{{i.title}}</span>
+                <i :class="{'hot':i.type2==1,'new':i.type2==2}"></i>
+              </li>
+            </a>
+            <a target="_blank"  v-if="!i.url" @click="onMassageChange('敬请期待')" v-for="i in gamelist">
+              <li>
+                <span>{{i.title}}</span>
+                <i :class="{'hot':i.type2==1,'new':i.type2==2}"></i>
+              </li>
+            </a>
           </ul>
         </div>
       </div>
@@ -159,6 +189,7 @@ export default {
   },
   data () {
     return {
+      massagenew:'',
       actioncenter:'',
       gamelist:'',
       news:'',
@@ -187,10 +218,13 @@ export default {
     }else {
       this.username = ''
     }
-    if(sessionStorage.getItem('userName')){
-      this.isLogin = sessionStorage.getItem('userName')
-    }else {
-      this.isLogin = ''
+    var name = 'userName='
+    var ca = document.cookie.split(';');
+    for(var i=0; i<ca.length; i++)
+    {
+      var c = ca[i].trim();
+      if (c.indexOf(name)==0)
+        this.isLogin = c.split('=')[1]
     }
     let url=weUrl+'boutique/index.html';
     this.$http.get(url)
@@ -207,12 +241,16 @@ export default {
       })
     this.$http.get(weUrl+'hotgame/index.html')
       .then(function(data){
-        this.HotGame=data.body
+        var basic = data.bodyText.substring(0, data.bodyText.lastIndexOf(','))+']';
+        this.HotGame=JSON.parse(basic)
       },function(response){
 
       })
   },
   methods: {
+    onMassageChange:function (val) {
+      this.massagenew=val
+    },
     retrievePassword:function () {
       this.popUp= ''
       this.$router.push('/retrievePassword')
@@ -292,11 +330,11 @@ export default {
         .then(function (data) {
           if (data.body.state) {
             this.isLogin = this.username
-            sessionStorage.setItem('userName', this.username)
+            document.cookie="userName="+this.username;
             this.popUpWindow(false)
             window.location.reload();
           } else {
-            alert(data.body.message)
+            this.onMassageChange(data.body.message)
           }
         }, function (response) {
 
@@ -356,6 +394,7 @@ export default {
             border 1px solid #c5c4c4
             border-radius 3px
             padding-left 38px
+            background #f5f5f5
         .password
           i
             background-position 1px -44px

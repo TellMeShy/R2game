@@ -29,8 +29,14 @@ export default {
     },
   },
   created:function () {
-    if(sessionStorage.getItem('userName')){
-      this.$router.push("/")
+    let name = 'userName='
+    let ca = document.cookie.split(';');
+    for(let i=0; i<ca.length; i++)
+    {
+      let c = ca[i].trim();
+      if (c.indexOf(name)==0){
+        this.$router.push("/")
+      }
     }
   }
 }

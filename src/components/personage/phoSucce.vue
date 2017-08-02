@@ -9,7 +9,8 @@
       </div>
       <h6><i class="bind-sure"></i>您的帐号已绑定手机号码</h6>
       <p class="bind-e-n">绑定的手机号码为：<a>{{pho}}</a></p>
-      <router-link to="/personage/changepho" class="change-bind button">修改绑定</router-link><router-link to="/personage/relievepho" class="relieve-bind button">解除绑定</router-link>
+      <router-link to="/personage/changepho" class="change-bind button">修改绑定</router-link>
+      <!--<router-link to="/personage/relievepho" class="relieve-bind button">解除绑定</router-link>-->
     </div>
 
   </div>
@@ -117,7 +118,7 @@ export default {
           color #de4205
        .button
          margin-left 27px
-         float left
+         /*float left*/
          height 32px
          width 94px
          line-height 32px
@@ -126,5 +127,6 @@ export default {
          border 1px solid #ee5602
          color #ffe6df
       .change-bind
-        margin-left 225px
+        display block
+        margin 0 auto
 </style>

@@ -7,7 +7,7 @@
         <Vgroup></Vgroup>
       </div>
       <div class="game-content-r">
-        <div class="game-content-nav">首页>咨询>R2games新闻</div>
+        <div class="game-content-nav">首页>咨询>魔力新闻</div>
         <div class="game-content-details">
           <router-view></router-view>
         </div>
