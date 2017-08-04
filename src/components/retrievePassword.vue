@@ -5,7 +5,7 @@
         <div class="breadNr">
           <span class="dqian">当前位置：</span>
           <span class="breadcrumbs">
-                <a href="">游族首页</a> &gt;
+                <a href="">魔力首页</a> &gt;
                 <a href="">用户中心</a>
             </span>
         </div>

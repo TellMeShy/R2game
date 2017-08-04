@@ -31,6 +31,17 @@ export default {
     Valert
   },
   created:function () {
+    let name = 'userName='
+    let ca = document.cookie.split(';');
+    for(let i=0; i<ca.length; i++)
+    {
+      let c = ca[i].trim();
+      if (c.indexOf(name)==0)
+      if(/@/.test(c.split('=')[1])){
+        document.cookie="userName="+c.split('=')[1].replace('@','');
+        window.location.reload();
+      }
+    }
     let url=weUrl+'?ct=userHome';
     let parmas={}
     this.$http.get(url,parmas)

@@ -20,10 +20,10 @@ export default {
     }
   },
   components:{
-    Vjoin
+    Vjoin,
   },
   methods:{
-    popUpWindow:function (a) {        //弹窗
+    popUpWindow:function (a) {      //弹窗
       this.popUp=a
     },
     onPopUpChange:function (val) {    //接受弹窗传值

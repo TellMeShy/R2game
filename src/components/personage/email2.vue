@@ -21,7 +21,7 @@
         <!--</div>-->
       <!--</div>-->
       <div class="emil2-message">
-        <p>您要绑定的邮箱为:<a></a></p>
+        <p>您要绑定的邮箱为:<a>{{email}}</a></p>
         <p>我们已向你的邮箱发送了认证邮件，请进入您的邮箱，点击激活链接，激活您的邮箱绑定。</p>
         <p>(激活链接有效时间为24小时)</p>
         <p>长期未收到邮件，请点击此处<router-link to="/personage/email">重新发送邮件</router-link></p>
@@ -56,11 +56,25 @@ export default {
   data () {
     return {
       newUrl:'',
+      email:''
     }
   },
   created:function () {
     this.newUrl = sessionStorage.getItem('newUrl')
-    sessionStorage.removeItem('newUrl')
+//    sessionStorage.removeItem('newUrl')
+    let email = sessionStorage.getItem('email')
+    if (String(email).indexOf('@') > 0) {
+      let str = email.split('@'),
+        _s = '';
+      if (str[0].length > 3) {
+        for (let i = 0; i < str[0].length - 3; i++) {
+          _s += '*';
+        }
+      }
+      let new_email = str[0].substr(0, 3) + _s + '@' + str[1]
+      this.email = new_email
+    }
+
   },
   methods:{
 

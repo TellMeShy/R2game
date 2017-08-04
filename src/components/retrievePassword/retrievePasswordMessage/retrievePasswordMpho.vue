@@ -142,7 +142,8 @@ export default {
               let parmas={
                 params:{
                   phone:this.pho,
-                  type:3
+                  type:3,
+                  verify:this.verify
                 }
               }
               this.$http.get(url,parmas)
@@ -215,7 +216,8 @@ export default {
         let parmas={
           params:{
             phone:this.pho,
-            type:3
+            type:3,
+            verify:this.verify
           }
         }
         this.$http.get(url,parmas)

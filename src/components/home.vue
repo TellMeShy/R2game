@@ -169,7 +169,6 @@
     </div>
     <Vjoin :webpopUp="popUp" @on-popUp-change="onPopUpChange"></Vjoin>
     <Valert :massage="massagenew" @on-massage-change="onMassageChange"></Valert>
-
   </div>
 
 </template>
@@ -218,11 +217,11 @@ export default {
     }else {
       this.username = ''
     }
-    var name = 'userName='
-    var ca = document.cookie.split(';');
-    for(var i=0; i<ca.length; i++)
+    let name = 'userName='
+    let ca = document.cookie.split(';');
+    for(let i=0; i<ca.length; i++)
     {
-      var c = ca[i].trim();
+      let c = ca[i].trim();
       if (c.indexOf(name)==0)
         this.isLogin = c.split('=')[1]
     }
@@ -452,9 +451,9 @@ export default {
             background #de4205
             color #fff
         .m-inews
-          border: 1px solid #cdd6e4;
-          margin-top: 29px;
-          background: #fff;
+          border: 1px solid #cdd6e4
+          margin-top: 29px
+          background: #fff
           padding-bottom 25px
           .m-title
             height: 50px;
@@ -546,7 +545,7 @@ export default {
                         color #de4205
                       .icon
                         float: left;
-                        background: url(../../static/img/icon.png) no-repeat;
+                        background: url(../../static/img/icon.png) no-repeat 1000px 1000px;
                         display: inline-block;
                         width: 14px;
                         height: 10px;

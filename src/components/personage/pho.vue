@@ -129,6 +129,7 @@ export default {
        let parmas={
          params:{
            phone:this.pho,
+           verify:this.verify1,
            type:2
          }
        }

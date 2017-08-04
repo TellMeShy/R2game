@@ -51,7 +51,7 @@
               <a class="icon icon-re" @click="changeImg"></a>
             </div>
             <p class="error" v-bind:class="{istrue:!registers.traffic.verifyError}"><i class="icon icon-exclamation" v-if="registers.traffic.verifyError"></i>请输入验证码</p>
-            <p class="agreement"><input type="checkbox" class="check" v-model="registers.traffic.agree"><a>阅读并同意魔力通行证注册协议</a></p>
+            <p class="agreement"><input type="checkbox" class="check" v-model="registers.traffic.agree"><a @click="onAgreementChange">阅读并同意魔力通行证注册协议</a></p>
             <button v-on:click="registersTraffic">快速注册</button>
             <p class="register">已注册？请<a v-on:click="popUpWindow('账号登录')">登录</a></p>
             <!--<p class="ortherLogo">-->
@@ -86,7 +86,7 @@
             <input type="text" placeholder="身份证号码" v-model="registers.pho.idcard" v-on:blur="checkIdcard(registers.pho.idcard,'registers','pho','idcardError')">
             <p class="error" v-bind:class="{istrue:!registers.pho.idcardError}"><i class="icon icon-exclamation" v-if="registers.pho.idcardError"></i>请准确填写身份证号码</p>
 
-            <p class="agreement"><input type="checkbox" class="check" v-model="registers.pho.agree"><a>阅读并同意魔力通行证注册协议</a></p>
+            <p class="agreement"><input type="checkbox" class="check" v-model="registers.pho.agree"><a @click="onAgreementChange">阅读并同意魔力通行证注册协议</a></p>
             <button v-on:click="registersPho">快速注册</button>
             <p class="register">已注册？请<a v-on:click="popUpWindow('账号登录')">登录</a></p>
             <!--<p class="ortherLogo">-->
@@ -101,20 +101,23 @@
       </div>
     </div>
     <Valert :massage="massagenew" @on-massage-change="onMassageChange"></Valert>
+    <Vagreement :agreement="agreementnew" @on-agreement-change="onAgreementChange"></Vagreement>
   </div>
 
 </template>
 
 <script>
   import Valert from './alert.vue'
+  import Vagreement from './agreement.vue'
 export default {
   name: 'Vjoin',
   components:{
-    Valert
+    Valert,Vagreement
   },
   props: ['webpopUp'],
   data () {
     return {
+      agreementnew:'',
       massagenew:'',
       popUp:this.webpopUp,
       username:'',
@@ -183,6 +186,9 @@ export default {
     }
   },
   methods:{
+    onAgreementChange:function (val) {
+      this.agreementnew = val
+    },
     onMassageChange:function (val) {
       this.massagenew=val
     },
@@ -363,6 +369,7 @@ export default {
         let parmas={
           params:{
             phone:this.registers.pho.phoNum,
+            verify:this.registers.pho.verify,
             type:1
           }
         }
@@ -432,7 +439,7 @@ export default {
         return
       }
       if(!this.registers.traffic.agree){
-        this.onMassageChange('请阅读并同意游族通行证注册协议!')
+        this.onMassageChange('请阅读并同意魔力通行证注册协议!')
         return
       }
       this.$http.get(weUrl+'?ct=user&ac=checkVerify',{params:{verify:this.registers.traffic.verify}})
@@ -478,7 +485,7 @@ export default {
         return
       }
       if(!this.registers.pho.agree){
-        this.onMassageChange('请阅读并同意游族通行证注册协议!')
+        this.onMassageChange('请阅读并同意魔力通行证注册协议!')
         return
       }
       this.$http.get(weUrl+'?ct=user&ac=checkVerify',{params:{verify:this.registers.pho.verify}})

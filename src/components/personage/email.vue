@@ -144,6 +144,7 @@ export default {
                sessionStorage.setItem('newUrl',newUrl)
              }
            }
+           sessionStorage.setItem('email',this.email)
            if(newUrl==''){
              sessionStorage.setItem('newUrl','http://www.baidu.com')
              this.$router.push('/personage/email2')

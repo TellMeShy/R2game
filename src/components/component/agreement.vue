@@ -1,9 +1,9 @@
 <template>
-  <div class="Valert" v-if="newMassage">
+  <div class="Vagreement" v-if="newAgreement">
     <div>
-      <h5>信息提示<div @click="check">×</div></h5>
+      <h5>魔力通行证注册协议<div @click="check">×</div></h5>
       <div class="Valert-content">
-        <p><i></i><span>{{newMassage}}</span></p>
+        <div v-html="detail"></div>
         <button @click="check">确认</button>
       </div>
 
@@ -13,32 +13,42 @@
 
 <script>
   export default {
-    name:'Valert',
+    name:'Vagreement',
     data () {
       return {
-        newMassage:this.massage
+        detail:this.detail,
+        newAgreement:this.agreement
       }
     },
-    props:['massage'],
+    props:['agreement'],
     methods: {
       check:function () {
-        this.newMassage = ''
-      },
+        this.newAgreement=''
+      }
     },
     watch:{
-
-      massage(val) {
-        this.newMassage = val;//新增result的watch，监听变更并同步到myResult上
+      agreement(val){
+          this.newAgreement = val
       },
-      newMassage(val){
-        //xxcanghai 小小沧海 博客园
-        this.$emit("on-massage-change",val);//③组件内对myResult变更后向外部发送事件通知
+      newAgreement(val){
+        this.$emit("on-agreement-change",val);
       }
+    },
+    created:function () {
+      var str=location.href
+      str = weUrl+'agreement/index.html'
+      this.$http.get(str)
+        .then(function(data){
+          var basic = data.body
+          this.detail=basic
+        },function(response){
+
+        })
     }
   }
 </script>
 <style lang="stylus">
-  .Valert
+  .Vagreement
     z-index 150
     width 100%
     height 100%
@@ -48,10 +58,16 @@
     left 0px
     >div
       border 1px solid #de3f05
-      margin 200px auto
-      width 408px
+      position absolute
+      margin auto
+      left 0px
+      right 0px
+      top 0px
+      bottom 0px
+      width 800px
       background #de3f05
       border-radius 5px 5px 0 0
+      height 648px
       h5
         height 50px
         background url("../../../static/img/myicon.png") no-repeat 26px 0px
@@ -75,29 +91,17 @@
         background #ffffff
         overflow hidden
         width 100%
-        p
-          text-align center
-          line-height 30px
-          box-sizing border-box
-          padding-top 36px
-          padding-bottom 34px
-          i
-            display inline-block
-            width 30px
-            margin-right 12px
-            background url("../../../static/img/myicon.png") no-repeat
-            background-position -156px  -61px
-            height 30px
-            vertical-align: middle;
-          span
-            vertical-align: middle;
-            display inline-block
-            height: 30px;
-            overflow: hidden;
-            line-height: 32px;
+        box-sizing border-box
+        padding 20px 30px 0 30px
+        >div
+          border 1px solid rgba(0,0,0,.3)
+          background #eee
+          height 500px
+          overflow scroll
+          padding 0 10px 0 10px
         button
           display block
-          margin 0 auto 23px
+          margin 20px auto 23px
           width 125px
           background #ff7527
           color #fff

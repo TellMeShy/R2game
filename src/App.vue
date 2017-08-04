@@ -287,7 +287,7 @@
           width 6px
           height 8px
           margin  8px 7px 0 15px
-          background url("../static/img/icon.png")no-repeat -63px -129px;
+          background url("../static/img/icon.png")no-repeat -63px -116px;
         .top-gameBox
           display block
           background #fff

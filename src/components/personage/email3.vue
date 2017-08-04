@@ -14,7 +14,7 @@
       </div>
       <h6><i class="bind-sure"></i>您的帐号已绑定邮箱</h6>
       <p class="bind-e-n">绑定的邮箱为：<a>{{email}}</a></p>
-      <router-link to="/personage/email" class="button">修改绑定</router-link>
+      <router-link to="/personage/changemail" class="button">修改绑定</router-link>
 
       <!--安全习惯区开始-->
       <div class="safeNoteQu">

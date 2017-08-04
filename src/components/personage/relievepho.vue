@@ -112,10 +112,11 @@ export default {
       this.imgSrc=this.imgSrc+'1'
     },
     getMessage:function () {
-      if(!this.phoError){
+      if(!this.phoError&&this.verify1){
         let url=weUrl+'?ct=user&ac=sendInfo';
         let parmas={
           params:{
+            verify:this.verify1,
             phone:this.pho,
             type:4
           }

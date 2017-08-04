@@ -39,35 +39,36 @@
             <span class="tian_mu"> <input name="code" type="text" class="in_mus in_short" id="textfield" v-model="phoverify"> <div class="t_a_smallNO" v-if="phoTime"><div>请稍等{{phoTime}}S</div></div> <a class="btnsu t_a_small" title="提交" @click="getMessage" v-if="!phoTime"><span class="zi">获取验证码</span></a></span>
           </p>
           <p v-if="!phoverify" class="error">*请输入短信验证码</p>
-          <p class="tian_btn_ha"><span class="tian_sx"> </span><a class="btnsu t_a"><span class="next" @click="nextstep">下一步</span></a> </p>
+          <p class="tian_btn_ha"><span class="tian_sx"> </span><a class="btnsu t_a"><span class="next" @click="nextStep">下一步</span></a> </p>
+
         </form>
-        <form v-if="step==2" class="step2">
-          <p class="tian_ha">
-            <span class="tian_sx">请输入新手机号码：</span>
-            <span class="tian_mu"><input type="text" v-model="pho2"></span>
-            <span class="tian_warn" id="new_number_info">为了帐号安全，请填写本人手机号码</span>
-          </p>
-          <p v-if="phoError2" class="error">*请输入正确的手机号</p>
-          <!--验证-->
-          <p class="tian_ha" id="showCaptcha">
-            <span class="tian_sx">请输入验证码：</span>
-            <span class="tian_mu">
+          <form v-if="step==2" class="step2">
+            <p class="tian_ha">
+              <span class="tian_sx">请输入新手机号码：</span>
+              <span class="tian_mu"><input type="text" v-model="pho2"></span>
+              <span class="tian_warn" id="new_number_info">为了帐号安全，请填写本人手机号码</span>
+            </p>
+            <p v-if="phoError2" class="error">*请输入正确的手机号</p>
+            <p class="tian_ha" id="showCaptcha">
+              <span class="tian_sx">请输入验证码：</span>
+              <span class="tian_mu">
                                 <input type="text" v-model="verify2">
                             </span>
-            <span class="tian_mu">
+              <span class="tian_mu">
                                 <img :src="imgSrc" alt="" @click="changeImg">
 
                             </span>
-          </p>
-          <p v-if="!verify2" class="error">*请输入验证码</p>
+            </p>
+            <p v-if="!verify2" class="error">*请输入验证码</p>
 
-          <p class="tian_ha">
-            <span class="tian_sx">请输入短信验证码：</span>
-            <span class="tian_mu"> <input name="code" type="text" class="in_mus in_short" id="textfield" v-model="phoverify2"> <div class="t_a_smallNO" v-if="phoTime"><div>请稍等{{phoTime}}S</div></div> <a class="btnsu t_a_small" title="提交" @click="getMessage" v-if="!phoTime"><span class="zi">获取验证码</span></a></span>
-          </p>
-          <p v-if="!phoverify2" class="error">*请输入短信验证码</p>
-          <p class="tian_btn_ha"><span class="tian_sx"> </span><a class="btnsu t_a"><span class="next" @click="goRouter">立即绑定</span></a> </p>
-        </form>
+            <p class="tian_ha">
+              <span class="tian_sx">请输入短信验证码：</span>
+              <span class="tian_mu"> <input name="code" type="text" class="in_mus in_short" id="textfield" v-model="phoverify2"> <div class="t_a_smallNO" v-if="phoTime"><div>请稍等{{phoTime}}S</div></div> <a class="btnsu t_a_small" title="提交" @click="getMessage" v-if="!phoTime"><span class="zi">获取验证码</span></a></span>
+            </p>
+            <p v-if="!phoverify2" class="error">*请输入短信验证码</p>
+            <p class="tian_btn_ha"><span class="tian_sx"> </span><a class="btnsu t_a"><span class="next" @click="goRouter">下一步</span></a> </p>
+
+          </form>
       </div>
       <!--手机绑定 输入 区结束-->
     </div>
@@ -82,18 +83,18 @@ export default {
   name: 'relievepho',
   data () {
     return {
+      oldpho:'',
       massagenew:'',
       step:1,
       imgSrc:weUrl+'?ct=user&ac=verify&id=1',
       pho:'',
-      pho2:'',
-      phoError:true,
-      phoError2:true,
       verify:'',
       phoverify:'',
+      pho2:'',
+      phoError2:true,
       verify2:'',
       phoverify2:'',
-      phoTime:0
+      phoTime:''
     }
   },
   components:{
@@ -119,6 +120,7 @@ export default {
       .then(function(data){
         if(data.body.state){
           var mobile = data.body.data.phone
+          this.oldpho = mobile
           if (mobile.length > 7) {
             var new_mobile = mobile.substr(0, 3) + '****' + mobile.substr(7)
           }
@@ -130,15 +132,6 @@ export default {
       })
   },
   watch:{
-    pho(val){
-      this.pho = val.replace(/ /g, "");
-      let x = /^1[34578]\d{9}$/
-      if(x.test(val)){
-        this.phoError=false
-      }else {
-        this.phoError=true
-      }
-    },
     pho2(val){
       this.pho2 = val.replace(/ /g, "");
       let x = /^1[34578]\d{9}$/
@@ -150,24 +143,57 @@ export default {
     }
   },
   methods:{
-    nextstep:function () {
-      this.step++
-    },
-    changeImg:function () {
-      this.imgSrc=this.imgSrc+'1'
-    },
-    goRouter:function () {
-      this.$router.push('/personage/changephoSucce')
-    },
-    onMassageChange:function (val) {
-      this.massagenew=val
+    nextStep:function () {
+        if((!this.phoverify)||(!this.verify)){
+            return
+        }
+      let parmas={
+        params:{
+          phone:this.oldpho,
+          type:5,
+          code:this.phoverify,
+          verify:this.verify
+        }
+      }
+      let url = weUrl+'?ct=user&ac=checkPhoneCode'
+      this.$http.get(url,parmas)
+        .then(function(data){
+          if(data.body.state){
+            this.phoTime=0
+            localStorage.setItem('time',0)
+            this.step = 2
+          }else {
+            this.onMassageChange(data.body.message)
+            this.imgSrc=this.imgSrc+'1'
+          }
+        },function(response){
+
+        })
     },
     getMessage:function () {
       let url=weUrl+'?ct=user&ac=sendInfo';
-      let parmas={
-        params:{
-          phone:this.pho2,
-          type:2
+      let parmas=''
+      if(this.step==1){
+        if(!this.verify){
+            return
+        }
+        parmas={
+          params:{
+            phone:this.oldpho,
+            verify:this.verify,
+            type:5
+          }
+        }
+      }else if(this.step==2){
+        if(!this.verify2){
+          return
+        }
+        parmas={
+          params:{
+            phone:this.pho2,
+            verify:this.verify2,
+            type:6
+          }
         }
       }
       this.$http.get(url,parmas)
@@ -191,10 +217,44 @@ export default {
             }
           }else {
             this.onMassageChange(data.body.message)
+            this.imgSrc=this.imgSrc+'1'
           }
         },function(response){
 
         })
+    },
+    changeImg:function () {
+      this.imgSrc=this.imgSrc+'1'
+    },
+    goRouter:function () {
+      if(this.phoError2||(!this.verify2)||(!this.phoverify2)){
+          return
+      }
+      let parmas={
+        params:{
+          newPhone:this.pho2,
+          newCode:this.phoverify2,
+          oldCode:this.phoverify,
+          verify:this.verify2
+        }
+      }
+      let url = weUrl+'?ct=userHome&ac=changePhone'
+      this.$http.get(url,parmas)
+        .then(function(data){
+          if(data.body.state){
+            document.cookie="userName=@"+this.pho2;
+            this.$router.push('/personage/changephoSucce')
+          }else {
+            this.onMassageChange(data.body.message)
+            this.imgSrc=this.imgSrc+'1'
+          }
+        },function(response){
+
+        })
+
+    },
+    onMassageChange:function (val) {
+      this.massagenew=val
     },
   },
 }
@@ -224,6 +284,8 @@ export default {
         min-height: 450px;
         _height: 450px;
         font-size: 14px;
+      .step2
+        padding-top 27px
       .StepBar
         padding: 0px 0px 10px 0px;
         .Step2zu
