@@ -10,7 +10,7 @@
           <li v-for="i in serverlist">
             <a class="name">{{i.gameName}}</a>
             <p class="server">
-              <a target="_blank">({{i.servernum}}){{i.servername}}</a>
+              <a target="_blank">{{i.servername}}</a>
               <em>{{i.open_time}}</em>
             </p>
             <a class="o-btn" :href="i.link">进入&gt;</a>

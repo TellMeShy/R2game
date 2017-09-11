@@ -13,7 +13,7 @@
         </ul>
         <div class="r2list right">
           <div class="r2list-button">
-            <i></i><span>魔力游戏</span>
+            <i class="icon-mgame"></i><span>魔力游戏</span>
           </div>
           <div class="top-gameBox cd">
 
@@ -75,7 +75,8 @@
               <li><a href="http://corporate.r2games.com/join/" target="_blank">加入我们</a></li>
               <li><a href="http://corporate.r2games.com/?ac=contact" target="_blank">客服中心</a></li>
               <li><a href="http://corporate.r2games.com/?ac=contact" target="_blank">商务合作</a></li>
-              <li><a href="">用户许可协议</a></li>
+              <li><a href="javascript:;" @click="onAgreementChange('魔力数娱-用户协议')">用户许可协议</a></li>
+              <li><a href="javascript:;" @click="onAgreementChange('魔力数娱-隐私政策')">隐私协议</a></li>
             </ul>
             <p class="recommend">
               <span>推荐游戏:</span>
@@ -96,7 +97,7 @@
       </div>
     </footer>
     <Vjoin :webpopUp="popUp" @on-popUp-change="onPopUpChange"></Vjoin>
-
+    <Vagreement :agreement="agreementnew" @on-agreement-change="onAgreementChange"></Vagreement>
     <!--<Valert></Valert>-->
   </div>
 </template>
@@ -106,14 +107,16 @@
   import VueResource from 'vue-resource';
   import Vjoin from './components/component/join.vue'
   import Valert from './components/component/alert.vue'
+  import Vagreement from './components/component/agreement.vue'
   Vue.use(VueResource);
   export default {
     name: 'app',
     components:{
-      Vjoin,Valert
+      Vjoin,Valert,Vagreement
     },
     data () {
       return {
+        agreementnew:"",
         currentNum: 1,
         isLogin:false,
         popUp:'',
@@ -171,6 +174,9 @@
         })
     },
     methods:{
+      onAgreementChange:function (val) {
+        this.agreementnew=val
+      },
       onMassageChange:function (val) {
         this.massagenew=val
       },
@@ -195,6 +201,7 @@
 
 <style lang="stylus">
   @import "../static/css/reset.css";
+
   header
     height 73px
     box-shadow 0 0 7px rgba(0,0,0,0.3)
@@ -282,11 +289,13 @@
           right 0
           z-index 51
           height 289px
+        &:hover .r2list-button >i
+          background-position -102px -116px
         i
           float left
           width 6px
           height 8px
-          margin  8px 7px 0 15px
+          margin  10px 7px 0 15px
           background url("../static/img/icon.png")no-repeat -63px -116px;
         .top-gameBox
           display block
@@ -332,6 +341,7 @@
                     height:25px
                     i
                       display:inline-block;width:16px;height:12px;margin-left:10px;
+                      background-position:-1000px -1000px;
                     .new
                       background-position:-69px -114px;
                     .hot
@@ -368,11 +378,12 @@
           width 849px
           float left
           .footer-b-r-nav
+            color #c8c8c8
             overflow hidden
             padding 20px 0 5px
-            color #c8c8c8
             margin-left -19px
-
+            span
+              color #de4205
             li
               float left
               color #000

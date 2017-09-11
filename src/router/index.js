@@ -41,6 +41,15 @@ import changephoSucce from '@/components/personage/changephoSucce'
 import relievepho from '@/components/personage/relievepho'
 import relievephoSucce from '@/components/personage/relievephoSucce'
 import password from '@/components/personage/password'
+import custody from '@/components/custody'
+
+//落地页
+import cwby from '@/components/squeezepage/cwby'
+import ztsg from '@/components/squeezepage/ztsg'
+import kingofrebirth from '@/components/squeezepage/kingofrebirth'
+
+
+
 Vue.use(Router)
 
 export default new Router({
@@ -128,6 +137,25 @@ export default new Router({
         {path:'password',component:password}
       ]
     },
-
+    {
+      path: '/custody',
+      name: 'custody',
+      component: custody
+    },
+    {
+      path: '/cwby',
+      name: 'cwby',
+      component: cwby
+    },
+    {
+      path: '/ztsg',
+      name: 'ztsg',
+      component: ztsg
+    },
+    {
+      path: '/kingofrebirth',
+      name: 'kingofrebirth',
+      component: kingofrebirth
+    }
   ]
 })

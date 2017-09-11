@@ -541,6 +541,10 @@ export default {
                       span
                         cursor pointer
                         float: left;
+                        width: 56px;
+                        overflow: hidden;
+                        white-space: nowrap;
+                        text-overflow: ellipsis;
                       &:hover
                         color #de4205
                       .icon

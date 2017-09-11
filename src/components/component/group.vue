@@ -10,10 +10,10 @@
       <div class="wx">
         <a class="u-icon6"><i></i>关注微信</a>
         <dl class="ewm">
-          <dt><img src="" alt=""></dt>
+          <dt><img src="../../../static/img/QRcode.jpg" alt=""></dt>
         </dl>
       </div>
-      <a class="u-icon7"><i></i>未成年人家长监护工程</a>
+      <router-link to="/custody" class="u-icon7"><i></i>未成年人家长监护工程</router-link>
     </div>
   </div>
 </template>
@@ -24,21 +24,33 @@ export default {
   data () {
     return {}
   },
-  methods:{
-  },
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="stylus">
   .m-leftGroup
-    overflow hidden
+    /*overflow hidden*/
+    width 310px
+    height 279px
+    box-sizing border-box
     font-size: 13px;
     margin-bottom: 0;
     border: 1px solid #cdd6e4;
     margin-top: 60px;
     background: #fff;
+    .wx
+      float left
+      position relative
+      border-bottom 1px solid #dedee3;
+      &:hover dl
+        display block
+      dl
+        position absolute
+        top 70px
+        display none
     a
+      background #fff
       float: left;
       height: 69px;
       overflow: hidden;

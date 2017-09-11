@@ -1,7 +1,7 @@
 <template>
   <div class="Vagreement" v-if="newAgreement">
     <div>
-      <h5>魔力通行证注册协议<div @click="check">×</div></h5>
+      <h5>{{newAgreement}}<div @click="check">×</div></h5>
       <div class="Valert-content">
         <div v-html="detail"></div>
         <button @click="check">确认</button>
@@ -28,22 +28,29 @@
     },
     watch:{
       agreement(val){
-          this.newAgreement = val
+        this.newAgreement = val
+        let str=''
+        if(val=='魔力通行证注册协议'){
+          str = weUrl+'agreement/index.html'
+        }else if(val=='魔力数娱-隐私政策'){
+          str = weUrl+'privacy/index.html'
+        }else if(val=='魔力数娱-用户协议'){
+          str = weUrl+'useragreement/index.html'
+        }
+        this.$http.get(str)
+          .then(function(data){
+            let basic = data.body
+            this.detail=basic
+          },function(response){
+
+          })
       },
       newAgreement(val){
         this.$emit("on-agreement-change",val);
       }
     },
     created:function () {
-      var str=location.href
-      str = weUrl+'agreement/index.html'
-      this.$http.get(str)
-        .then(function(data){
-          var basic = data.body
-          this.detail=basic
-        },function(response){
 
-        })
     }
   }
 </script>
@@ -95,7 +102,7 @@
         padding 20px 30px 0 30px
         >div
           border 1px solid rgba(0,0,0,.3)
-          background #eee
+          /*background #eee*/
           height 500px
           overflow scroll
           padding 0 10px 0 10px
