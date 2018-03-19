@@ -4,8 +4,8 @@
       <a class="u-icon1" href="http://corporate.r2games.com/" target="_blank"><i></i>海外平台</a>
       <a class="u-icon2" href="http://corporate.r2games.com/?ac=contact" target="_blank"><i></i>客服服务<span class="phone">0755-86700316</span></a>
       <a class="u-icon3" target="_blank"><i></i>美女游戏</a>
-      <a class="u-icon4" target="_blank"><i></i>新浪微博</a>
-      <a class="u-icon5" target="_blank"><i></i>腾讯微博</a>
+      <a class="u-icon4" target="_blank" href="https://weibo.com/6337142968/profile?topnav=1&wvr=6&is_all=1&ssl_rnd=1510047054.7164"><i></i>新浪微博</a>
+      <a class="u-icon5" target="_blank" href="http://t.qq.com/molishuyu"><i></i>腾讯微博</a>
 
       <div class="wx">
         <a class="u-icon6"><i></i>关注微信</a>

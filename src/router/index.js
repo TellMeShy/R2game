@@ -3,6 +3,8 @@ import Router from 'vue-router'
 import home from '@/components/home'
 import game from '@/components/game'
 import Recharge from '@/components/Recharge'
+import recharge1 from '@/components/recharge/index'
+import pay from '@/components/recharge/pay'
 import news from '@/components/news'
 import detail from '@/components/news/detail'
 import newsList from '@/components/news/list'
@@ -66,9 +68,13 @@ export default new Router({
     },
     {
       path: '/recharge',
-      name: 'recharge',
-      component: Recharge
+      component: Recharge,
+      children:[
+        {path: '',component: recharge1},
+        {path: 'pay',component: pay}
+      ]
     },
+
     {
       path:'/news',
       component: news,

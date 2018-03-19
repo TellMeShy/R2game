@@ -5,7 +5,7 @@
     <div class="content">
       <img src="http://r2cdn-cnp.r2games.com.cn/squeezepage/ztsg/ztsg.png" alt="正统三国">
       <div class="button">
-        <a href="http://r2cdn-cnp.r2games.com.cn/apk/ztsg/1.3.4.2.apk"><button class="Android">安卓下载</button></a>
+        <a href="http://r2cdn-cnp.r2games.com.cn/apk/ztsg/1.4.4.apk"><button class="Android">安卓下载</button></a>
         <button class="Ios" onclick="alert('敬请期待')">苹果下载</button>
       </div>
       <button class="gift" onclick="alert('敬请期待')">点我领奖</button>

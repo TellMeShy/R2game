@@ -39,7 +39,7 @@
                   <a target="_blank"  v-if="!i.url" @click="onMassageChange('敬请期待')"><img :src="i.sImg" alt="" width="46" height="46"></a>
                 </li>
                 <li class="code">{{i.title}}</li>
-                <li><a target="_blank" :href="i.gift" class="g-btnBig" v-if="i.gift">领取礼包</a></li>
+                <li><a target="_blank" class="g-btnBig g-getbtn" @click="onGiftChange(i.gift)" v-if="i.gift">领取礼包</a></li>
                 <li><a target="_blank" @click="onMassageChange('敬请期待')" class="g-btnBig" v-if="!i.gift">领取礼包</a></li>
               </ul>
             </div>
@@ -59,6 +59,7 @@
         </div>
       </div>
       <Valert :massage="massagenew" @on-massage-change="onMassageChange"></Valert>
+      <Vgiftalert :gift="gift" @on-gift-change="onGiftChange"></Vgiftalert>
     </div>
   </div>
 </template>
@@ -69,10 +70,14 @@
   import Vgroup from './component/group.vue'
   import Vhotevents from './component/hotevents.vue'
   import Valert from './component/alert.vue'
+  import Vgetgift from './component/getgift.vue'
+  import Vgiftalert from './component/gitfalert.vue'
 export default {
   name: 'game',
   data () {
     return {
+      gift:'',
+      giftdata:'',
       massagenew:'',
       list:'',
       pagecur:1,
@@ -81,9 +86,12 @@ export default {
     }
   },
   components:{
-    Vswipe,VserverList,Vgroup,Vhotevents,Valert
+    Vswipe,VserverList,Vgroup,Vhotevents,Valert,Vgetgift,Vgiftalert
   },
   methods:{
+    onGiftChange:function (val) {
+      this.gift = val
+    },
     onMassageChange:function (val) {
       this.massagenew=val
     },
@@ -94,6 +102,14 @@ export default {
         a=this.page-1
       }
       this.pagecur = a+1
+    },
+    showgift:function (a) {
+      this.$http.get(weUrl+'?ct=act&ac=giftCode&code='+a)
+        .then(function(data){
+          this.giftdata = data.body;
+        },function(response){
+
+        })
     }
   },
   watch:{

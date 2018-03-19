@@ -8,22 +8,22 @@
       <div class="u-serverLst">
         <ul v-if="hover==1">
           <li v-for="i in serverlist">
-            <a class="name">{{i.gameName}}</a>
+            <a target="_blank" class="name" :href="i.gameUrl">{{i.gameName}}</a>
             <p class="server">
-              <a target="_blank">{{i.servername}}</a>
+              <a target="_blank" :href="i.gameUrl">{{i.servername}}</a>
               <em>{{i.open_time}}</em>
             </p>
-            <a class="o-btn" :href="i.link">进入&gt;</a>
+            <a class="o-btn" :href="i.gameUrl">进入&gt;</a>
           </li>
         </ul>
         <ul v-if="hover==2">
           <li v-for="i in newserverlist">
-            <a class="name">{{i.gameName}}</a>
+            <a target="_blank" class="name" :href="i.gameUrl">{{i.gameName}}</a>
             <p class="server">
-              <a href="" target="_blank">({{i.servernum}}){{i.servername}}</a>
+              <a href="" target="_blank" :href="i.gameUrl">{{i.servername}}</a>
               <em>{{i.open_time}}</em>
             </p>
-            <a class="o-btn" :href="i.link">进入&gt;</a>
+            <a class="o-btn" :href="i.gameUrl">进入&gt;</a>
           </li>
         </ul>
       </div>
@@ -47,13 +47,13 @@ export default {
   created:function () {
     this.$http.get(weUrl+'?ac=getServerlist',{params:{list:5,type:1}})
       .then(function(data){
-        this.serverlist=data.body.data
+        this.serverlist=data.body.data.slice(0,5)
       },function(response){
 
       })
     this.$http.get(weUrl+'?ac=getServerlist',{params:{list:5,type:2}})
       .then(function(data){
-        this.newserverlist=data.body.data
+        this.newserverlist=data.body.data.slice(0,5)
       },function(response){
 
       })
@@ -126,6 +126,9 @@ export default {
                 display: block;
                 color: #000;
                 font-size: 13px;
+                overflow: hidden;
+                text-overflow:ellipsis;
+                white-space: nowrap;
                 &:hover
                   color #de4205
               em

@@ -1,17 +1,17 @@
 <template>
   <div class="home">
-    <div class="web-login-box" v-if="!isLogin" @keyup="Enter($event)">
-      <div class="login-box">
-        <h4><router-link to="/details/001">登录魔力通行证</router-link></h4>
-        <div><i></i><input type="text" placeholder="账号" v-model="username" v-on:blur="checkLogUser(username,'userError')"></div>
-        <p v-if="userError" class="error"><i class="icon icon-exclamation"></i>*5-20个小写英文字母或数字组成</p>
-        <div class="password"><i></i><input onfocus="this.type='password'" type="text"  autocomplete="off" placeholder="密码" v-model="password" v-on:blur="checkPassword(password,'passwordError')"></div>
-        <p v-if="passwordError" class="error"><i class="icon icon-exclamation"></i>*6-20个数字字母混合，不含空格键</p>
-        <p class="orther"><input type="checkbox" v-model="cookieUser">记住用户名 <a @click="retrievePassword">忘记密码？</a></p>
-        <button v-on:click="login">登录</button>
-        <button class="register" @click="popUpWindow('快速注册')">免费注册</button>
-      </div>
-    </div>
+    <!--<div class="web-login-box" v-if="!isLogin" @keyup="Enter($event)">-->
+      <!--<div class="login-box">-->
+        <!--<h4><router-link to="/details/001">登录魔力通行证</router-link></h4>-->
+        <!--<div><i></i><input type="text" placeholder="账号" v-model="username" v-on:blur="checkLogUser(username,'userError')"></div>-->
+        <!--<p v-if="userError" class="error"><i class="icon icon-exclamation"></i>*5-20个小写英文字母或数字组成</p>-->
+        <!--<div class="password"><i></i><input onfocus="this.type='password'" type="text"  autocomplete="off" placeholder="密码" v-model="password" v-on:blur="checkPassword(password,'passwordError')"></div>-->
+        <!--<p v-if="passwordError" class="error"><i class="icon icon-exclamation"></i>*6-20个数字字母混合，不含空格键</p>-->
+        <!--<p class="orther"><input type="checkbox" v-model="cookieUser">记住用户名 <a @click="retrievePassword">忘记密码？</a></p>-->
+        <!--<button v-on:click="login">登录</button>-->
+        <!--<button class="register" @click="popUpWindow('快速注册')">免费注册</button>-->
+      <!--</div>-->
+    <!--</div>-->
     <Vswipe></Vswipe>
     <div class="home-content">
       <div>
@@ -54,7 +54,7 @@
                         <i class="icon" :class="{'new':i.type2==2,'hot':i.type2==1}"></i>
                       </p>
                       <p class="slink">
-                        <a target="_blank" :href="i.url" v-if="i.url">官网</a><a target="_blank"  v-if="!i.url" @click="onMassageChange('敬请期待')">官网</a>|<a target="_blank" :href="i.gift" v-if="i.gift">礼包</a><a target="_blank"  @click="onMassageChange('敬请期待')" v-if="!i.gift">礼包</a>
+                        <a target="_blank" :href="i.url" v-if="i.url">官网</a><a target="_blank"  v-if="!i.url" @click="onMassageChange('敬请期待')">官网</a>|<a target="_blank" @click="onGiftChange(i.gift)" v-if="i.gift">礼包</a><a target="_blank"  @click="onMassageChange('敬请期待')" v-if="!i.gift">礼包</a>
                       </p>
                     </li>
                     <li>
@@ -100,7 +100,7 @@
                 <p class="slink">
                 <a target="_blank" :href="i.url" v-if="i.url">官网</a>
                 <a target="_blank"  v-if="!i.url" @click="onMassageChange('敬请期待')">官网</a> |
-                <a target="_blank" :href="i.gift" v-if="i.gift">礼包</a>
+                <a target="_blank" @click="onGiftChange(i.gift)" v-if="i.gift">礼包</a>
                 <a target="_blank" @click="onMassageChange('敬请期待')" v-if="!i.gift">礼包</a>
                 </p>
                 <div class="btn">
@@ -169,6 +169,7 @@
     </div>
     <Vjoin :webpopUp="popUp" @on-popUp-change="onPopUpChange"></Vjoin>
     <Valert :massage="massagenew" @on-massage-change="onMassageChange"></Valert>
+    <Vgiftalert :gift="gift" @on-gift-change="onGiftChange"></Vgiftalert>
   </div>
 
 </template>
@@ -177,6 +178,7 @@
 
 import Vswipe from './component/swipe.vue'
 import Valert from './component/alert.vue'
+import Vgiftalert from './component/gitfalert.vue'
 import VserverList from './component/serverList.vue'
 import Vgroup from './component/group.vue'
 import Vjoin from './component/join.vue'
@@ -184,10 +186,11 @@ import VgameGift from './component/gameGift.vue'
 export default {
   name: 'home',
   components:{
-    Vswipe,VserverList,Vgroup,Vjoin,VgameGift,Valert
+    Vswipe,VserverList,Vgroup,Vjoin,VgameGift,Valert,Vgiftalert
   },
   data () {
     return {
+      gift:'',
       massagenew:'',
       actioncenter:'',
       gamelist:'',
@@ -250,12 +253,16 @@ export default {
     onMassageChange:function (val) {
       this.massagenew=val
     },
+    onGiftChange:function (val) {
+      this.gift = val
+    },
     retrievePassword:function () {
       this.popUp= ''
       this.$router.push('/retrievePassword')
     },
     onPopUpChange:function (val) {    //接受弹窗传值
       this.popUp=val
+
     },
     hoverBox: function () {
       var data = this;
@@ -541,10 +548,9 @@ export default {
                       span
                         cursor pointer
                         float: left;
-                        width: 56px;
-                        overflow: hidden;
-                        white-space: nowrap;
-                        text-overflow: ellipsis;
+                        width: 60px;
+                        text-align center
+                        letter-spacing:-1px
                       &:hover
                         color #de4205
                       .icon
@@ -554,7 +560,7 @@ export default {
                         width: 14px;
                         height: 10px;
                         margin-top: 2px;
-                        margin-left: 5px;
+                        margin-left: 0px;
                       .new
                         background-position: -70px -115px;
                       .hot

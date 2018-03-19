@@ -23,6 +23,7 @@ time, mark, audio, video {
 body {
   line-height:1;
   font-size: 14px;
+  font-family: "Microsoft YaHei"
 }
 
 :focus {
@@ -123,4 +124,16 @@ a{
 }
 #app .hovera:hover{
   color: #de4205;
+}
+@-webkit-keyframes myfirst
+{
+  0%   {bottom: .22rem}
+  50%  {bottom: .01rem}
+  100% {bottom: .22rem}
+}
+@keyframes myfirst
+{
+  0%   {bottom: .22rem}
+  50%  {bottom: .01rem}
+  100% {bottom: .22rem}
 }

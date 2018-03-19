@@ -185,9 +185,10 @@
       },
       logout:function(){               //注销
         document.cookie="userName=John Doe; expires=Thu, 18 Dec 2013 12:00:00 GMT";
+
         this.isLogin = ''
         this.$router.push({path:'/'})
-        window.location.reload();
+        window.location = 'http://www.r2games.com.cn/?ct=user&ac=logout'
       },
       popUpWindow:function (a) {        //弹窗
         this.popUp=a
@@ -209,7 +210,7 @@
       height 73px
       /*overflow hidden*/
       position relative
-      h1
+      .r2logo
         margin-top 7px
         height 55px
         width 168px
